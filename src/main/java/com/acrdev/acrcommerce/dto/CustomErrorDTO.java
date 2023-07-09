@@ -2,7 +2,7 @@ package com.acrdev.acrcommerce.dto;
 
 import java.time.Instant;
 
-public class CustomError {
+public class CustomErrorDTO {
     /*
     {
     "timestamp": "2023-06-05T17:56:42.645+00:00",
@@ -16,7 +16,7 @@ public class CustomError {
     private String error;
     private String path;
 
-    public CustomError(Instant timestamp, Integer status, String error, String path) {
+    public CustomErrorDTO(Instant timestamp, Integer status, String error, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;

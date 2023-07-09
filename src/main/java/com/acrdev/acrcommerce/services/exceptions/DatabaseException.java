@@ -1,4 +1,4 @@
-package com.acrdev.acrcommerce.controllers.handlers;
+package com.acrdev.acrcommerce.services.exceptions;
 
 public class DatabaseException extends RuntimeException {
 

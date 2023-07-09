@@ -1,7 +1,7 @@
 package com.acrdev.acrcommerce.services;
 
-import com.acrdev.acrcommerce.controllers.handlers.DatabaseException;
-import com.acrdev.acrcommerce.dto.ProductDto;
+import com.acrdev.acrcommerce.services.exceptions.DatabaseException;
+import com.acrdev.acrcommerce.dto.ProductDTO;
 import com.acrdev.acrcommerce.entities.Product;
 import com.acrdev.acrcommerce.repositories.ProductRepository;
 import com.acrdev.acrcommerce.services.exceptions.ResourceNotFoundException;
@@ -21,34 +21,34 @@ public class ProductService {
     private ProductRepository repository;
 
     @Transactional(readOnly = true)
-    public ProductDto findById(Long id) {
+    public ProductDTO findById(Long id) {
         Product product = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado!")); //.get(); //busca no DB
-        return new ProductDto(product);
+        return new ProductDTO(product);
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDto> findAll(String name, Pageable pageable) {
+    public Page<ProductDTO> findAll(String name, Pageable pageable) {
         Page<Product> products = repository.searchByName(name, pageable);
-        return products.map(recordFound -> new ProductDto(recordFound));
+        return products.map(recordFound -> new ProductDTO(recordFound));
     }
 
     @Transactional
-    public ProductDto insert(ProductDto dto) {
+    public ProductDTO insert(ProductDTO dto) {
         Product entity = new Product();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new ProductDto(entity);
+        return new ProductDTO(entity);
     }
 
     @Transactional
-    public ProductDto update(Long id, ProductDto dto) {
+    public ProductDTO update(Long id, ProductDTO dto) {
 
         try{
             Product entity = repository.getReferenceById(id); //não vai no DB, obj monitorado pela JPA
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new ProductDto(entity);
+            return new ProductDTO(entity);
          } catch (EntityNotFoundException e){
             throw  new ResourceNotFoundException("Recurso não encontrado!");
         }
@@ -69,22 +69,7 @@ public class ProductService {
     }
 
 
-    //forma antiga não funciona
-   /* @Transactional(propagation =  Propagation.SUPPORTS)
-    public void delete(Long id){
-        try {
-            repository.deleteById(id);
-        }
-        catch (EmptyResultDataAccessException e){
-            throw  new ResourceNotFoundException("Recurso não encontrado!");
-        }
-        catch (DataIntegrityViolationException e){
-            throw new DatabaseException("Falha de Integridade referencial");
-        }
-
-    }*/
-
-    private void copyDtoToEntity(ProductDto dto, Product entity) {
+    private void copyDtoToEntity(ProductDTO dto, Product entity) {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setImgUrl(dto.getImgUrl());
