@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AcrcommerceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AcrcommerceApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(AcrcommerceApplication.class, args);
+    }
 }
