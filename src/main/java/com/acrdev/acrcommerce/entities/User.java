@@ -3,9 +3,7 @@ package com.acrdev.acrcommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -22,7 +20,11 @@ public class User {
     private LocalDate birthDate;
     private String password;
 
-    // private String roles[];
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "client") //nome do atributo em Order
     private List<Order> orders = new ArrayList<>();
@@ -105,4 +107,19 @@ public class User {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
+    //métodos aux.
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName){
+        for(Role role : roles){
+            if(role.equals(roleName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
