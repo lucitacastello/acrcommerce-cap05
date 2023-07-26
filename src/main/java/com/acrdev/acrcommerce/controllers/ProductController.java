@@ -1,6 +1,7 @@
 package com.acrdev.acrcommerce.controllers;
 
 import com.acrdev.acrcommerce.dto.ProductDTO;
+import com.acrdev.acrcommerce.dto.ProductMinDTO;
 import com.acrdev.acrcommerce.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(
+    public ResponseEntity<Page<ProductMinDTO>> findAll(
             @RequestParam (name = "name", defaultValue = "" ) String name,
             Pageable pageable){
-        Page<ProductDTO> dto = service.findAll(name, pageable);
+        Page<ProductMinDTO> dto = service.findAll(name, pageable);
         return ResponseEntity.ok(dto);
     }
 

@@ -1,5 +1,6 @@
 package com.acrdev.acrcommerce.services;
 
+import com.acrdev.acrcommerce.dto.ProductMinDTO;
 import com.acrdev.acrcommerce.services.exceptions.DatabaseException;
 import com.acrdev.acrcommerce.dto.ProductDTO;
 import com.acrdev.acrcommerce.entities.Product;
@@ -28,9 +29,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
         Page<Product> products = repository.searchByName(name, pageable);
-        return products.map(recordFound -> new ProductDTO(recordFound));
+        return products.map(recordFound -> new ProductMinDTO(recordFound));
     }
 
     @Transactional
