@@ -1,6 +1,8 @@
 package com.acrdev.acrcommerce.services;
 
+import com.acrdev.acrcommerce.dto.CategoryDTO;
 import com.acrdev.acrcommerce.dto.ProductMinDTO;
+import com.acrdev.acrcommerce.entities.Category;
 import com.acrdev.acrcommerce.services.exceptions.DatabaseException;
 import com.acrdev.acrcommerce.dto.ProductDTO;
 import com.acrdev.acrcommerce.entities.Product;
@@ -75,5 +77,12 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setImgUrl(dto.getImgUrl());
         entity.setPrice(dto.getPrice());
+        //limpando categorias
+        entity.getCategories().clear();
+        for(CategoryDTO catDTO : dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDTO.getId()); //copiando o ID do DTO
+            entity.getCategories().add(cat); //inserindo na entity - product
+        }
     }
 }
