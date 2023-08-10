@@ -79,6 +79,7 @@ public class ProductService {
         entity.setPrice(dto.getPrice());
         //limpando categorias
         entity.getCategories().clear();
+        //copiando as categorias
         for(CategoryDTO catDTO : dto.getCategories()){
             Category cat = new Category();
             cat.setId(catDTO.getId()); //copiando o ID do DTO

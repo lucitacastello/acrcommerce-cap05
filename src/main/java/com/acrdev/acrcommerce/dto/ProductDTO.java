@@ -45,6 +45,7 @@ public class ProductDTO {
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+        //copiando para a entity as categorias
         for(Category cat : entity.getCategories()){
             categories.add(new CategoryDTO(cat));
         }
