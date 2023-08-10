@@ -110,6 +110,20 @@ public class User implements UserDetails {
         return password;
     }
 
+    //métodos aux.
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName){
+        for(Role role : roles){
+            if(role.getAuthority().equals(roleName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String getUsername() {
         return email;
@@ -158,18 +172,6 @@ public class User implements UserDetails {
         return id != null ? id.hashCode() : 0;
     }
 
-    //métodos aux.
-    public void addRole(Role role){
-        roles.add(role);
-    }
 
-    public boolean hasRole(String roleName){
-        for(Role role : roles){
-            if(role.equals(roleName)){
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

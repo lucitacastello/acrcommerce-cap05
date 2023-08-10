@@ -3,6 +3,7 @@ package com.acrdev.acrcommerce.controllers.handlers;
 import com.acrdev.acrcommerce.dto.CustomErrorDTO;
 import com.acrdev.acrcommerce.dto.ValidationErrorDTO;
 import com.acrdev.acrcommerce.services.exceptions.DatabaseException;
+import com.acrdev.acrcommerce.services.exceptions.ForbiddenException;
 import com.acrdev.acrcommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,13 @@ public class ControllerExceptionHandler {
             err.addError(f.getField(), f.getDefaultMessage());
         }
 
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomErrorDTO> forbidden(ForbiddenException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.FORBIDDEN; //403
+        CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(),  e.getMessage(), request.getRequestURI() );
         return ResponseEntity.status(status).body(err);
     }
 
