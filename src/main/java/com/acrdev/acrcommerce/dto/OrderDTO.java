@@ -3,6 +3,7 @@ package com.acrdev.acrcommerce.dto;
 import com.acrdev.acrcommerce.entities.Order;
 import com.acrdev.acrcommerce.entities.OrderItem;
 import com.acrdev.acrcommerce.entities.OrderStatus;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class OrderDTO {
 
     private PaymentDTO paymentDTO;
 
+    @NotEmpty(message = "Deve ter pelo menos um item")
     private List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO clientDTO, PaymentDTO paymentDTO) {
@@ -67,7 +69,7 @@ public class OrderDTO {
         return items;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         double sum = 0.0;
 
         for (OrderItemDTO item : items) {

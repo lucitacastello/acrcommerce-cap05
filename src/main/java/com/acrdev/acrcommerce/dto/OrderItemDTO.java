@@ -6,10 +6,10 @@ public class OrderItemDTO {
 
     private Long productId;
     private String name;
-    private double price;
+    private Double price;
     private Integer quantity;
 
-    public OrderItemDTO(Long productId, String name, double price, Integer quantity) {
+    public OrderItemDTO(Long productId, String name, Double price, Integer quantity) {
         this.productId = productId;
         this.name = name;
         this.price = price;
@@ -31,7 +31,7 @@ public class OrderItemDTO {
         return name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -40,7 +40,7 @@ public class OrderItemDTO {
     }
 
     //para pegar o total
-    public double getSubTotal(){
+    public Double getSubTotal(){
 
         return price * quantity;
     }
