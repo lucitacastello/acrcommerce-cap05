@@ -18,6 +18,8 @@ public class ValidationErrorDTO extends CustomErrorDTO {
     }
 
     public void addError(String fieldName, String message){
+        //remove erro campos duplicados
+        errors.removeIf(x -> x.getFieldName().equals(fieldName));
 
         errors.add(new FieldMessageDTO(fieldName,message));
     }
